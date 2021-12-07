@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>document</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+
+<button id="token_1" value="val_1" name="but1">Token</button>
+<br>
+<br>
+<button id="button_1" value="val_1" name="but1">button 1</button>
+<br>
+<br>
+<p id="demo"></p>
+<script>
+
+  
+
+
+var authenticationID;
+var auth = {
+  "url": "http://localhost:8080/auth/realms/master/protocol/openid-connect/token",
+  "method": "POST",
+  "timeout": 0,
+  "data": {
+    "client_id": "rest_client",
+    "username": "amadmin",
+    "password": "Welcome@123",
+    "grant_type": "password",
+    //"client_secret": "88a78ce7-bcb8-4f53-92ae-180c13f6946b",
+    //"scope": "openid"
+  }
+};
+
+$("#token_1").on("click", function(e) {
+    e.preventDefault();
+$.ajax(auth).done(function (response) {
+  console.log(response);
+  // authenticationID = response['tokenId'];
+  document.getElementById('demo').innerHTML = authenticationID;
+  settings.headers.iPlanetDirectoryPro = authenticationID;
+  //console.log(authenticationID);
+  //console.log(settings);
+});
+});
+
+
+
+
+var settings = {
+  "url": "https://ewallet-test.uppclonline.com:7777/openam/json/users/india",
+  "method": "PUT",
+  "timeout": 0,
+  "headers": {
+    "Content-Type": "application/json",
+    "iPlanetDirectoryPro": "",
+    "Accept-API-Version": "resource=1.0,protocol=1.1"
+  },
+  "data": JSON.stringify({"userpassword":"America@1998"}),
+};
+
+$("#button_1").on("click", function(e) {
+    e.preventDefault();
+$.ajax(settings).done(function (response) {
+  console.log("Password Change");
+});
+});
+</script>
+
+</body>
+</html>
